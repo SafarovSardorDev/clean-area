@@ -1,0 +1,365 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trash Monitor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta http-equiv="refresh" content="30">
+  <audio id="notification-sound" src="{% static 'sounds/notification.mp3' %}" preload="auto"></audio>
+  <style>
+    /* Toast Notification */
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      max-width: 350px;
+      background-color: #ffebee;
+      color: #c62828;
+      border-left: 4px solid #d50000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      border-radius: 6px;
+      padding: 16px;
+      z-index: 9999;
+      transform: translateX(400px);
+      transition: transform 0.3s ease-in-out;
+    }
+    .toast-notification.show {
+      transform: translateX(0);
+    }
+    .toast-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .toast-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-right: 20px;
+    }
+    .toast-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #c62828;
+    }
+    .toast-body {
+      font-size: 14px;
+    }
+    .trash-icon {
+      margin-right: 12px;
+      color: #d50000;
+    }
+    .pulse {
+      animation: pulse-animation 1s infinite;
+    }
+    @keyframes pulse-animation {
+      0% { box-shadow: 0 0 0 0 rgba(213, 0, 0, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(213, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(213, 0, 0, 0); }
+    }
+
+    /* Header and Logo */
+    .logo-container {
+      transition: all 0.3s ease;
+    }
+    .logo-container:hover {
+      transform: scale(1.05);
+    }
+    .header-gradient {
+      background: linear-gradient(90deg, rgba(37,99,235,0.1) 0%, rgba(59,130,246,0.1) 50%, rgba(52,211,153,0.1) 100%);
+    }
+    .header-title {
+      background: linear-gradient(to right, #1e40af, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 0.5px;
+      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+    }
+    .logo-area {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      overflow: hidden;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 4px; /* Kamaytirilgan padding */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+    }
+    .logo-area:hover {
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+    }
+    .logo-tooltip {
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      text-align: center;
+    }
+    .logo-area:hover .logo-tooltip {
+      bottom: -30px;
+      opacity: 1;
+    }
+    .logo-img {
+      width: 10000px; /* Kattalashtirilgan logo */
+      height: 10000px;
+      object-fit: contain;
+    }
+
+    /* Logout Button */
+    .logout-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: linear-gradient(to right, #2563eb, #3b82f6);
+      color: white;
+      font-weight: 600;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .logout-btn:hover {
+      background: linear-gradient(to right, #1e40af, #2563eb);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .logout-btn svg {
+      margin-right: 8px;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <div class="container mx-auto p-6">
+    <!-- Header -->
+    <div class="header header-gradient p-6 rounded-lg shadow-lg mb-6">
+      <div class="flex justify-between items-center">
+        <div class="logo-container flex items-center">
+          <div class="logo-area">
+            <img src="{% static 'images/team_logo.svg' %}" alt="Team Logo" class="logo-img" />
+            <span class="logo-tooltip">Toza Hudud</span>
+          </div>
+        </div>
+        <div class="flex-1 mx-4 text-center">
+          <h1 class="text-3xl font-extrabold header-title">Mirzo Ulug'bek tumani</h1>
+          <h2 class="text-xl font-bold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi Dispetcherlik Xizmati</h2>
+        </div>
+        <div class="logo-container flex items-center">
+          <div class="logo-area">
+            <img src="{% static 'images/project_logo.svg' %}" alt="Project Logo" class="logo-img" />
+            <span class="logo-tooltip">Toza Hudud</span>
+          </div>
+        </div>
+      </div>
+      <!-- Logout Button -->
+      <div class="mt-4 text-right">
+        <a href="{% url 'logout' %}" class="logout-btn">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+          Chiqish
+        </a>
+      </div>
+    </div>
+
+    <!-- Statistika -->
+    <div class="stats-container bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg shadow-md mb-6">
+      <div class="stats-box grid grid-cols-2 gap-4 text-center">
+        <div class="stat-item">
+          <h3 class="text-lg font-semibold text-gray-700">Jami idishlar</h3>
+          <div id="total-bins" class="text-3xl font-bold text-blue-600">{{ total_bins }}</div>
+        </div>
+        <div class="stat-item">
+          <h3 class="text-lg font-semibold text-gray-700">To'lgan idishlar</h3>
+          <div id="filled-bins" class="text-3xl font-bold text-red-600">{{ filled_bins }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast bildirishnoma -->
+    <div id="toast-container"></div>
+
+    <!-- Idishlar ro'yxati -->
+    <div class="table-container bg-white p-6 rounded-lg shadow-lg">
+      <table id="bins-table" class="w-full border-collapse relative">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border p-3 text-left text-gray-700">ID</th>
+            <th class="border p-3 text-left text-gray-700">Sensor ID</th>
+            <th class="border p-3 text-left text-gray-700">Mahalla</th>
+            <th class="border p-3 text-left text-gray-700">Manzil</th>
+            <th class="border p-3 text-left text-gray-700">Holat</th>
+          </tr>
+        </thead>
+        <tbody id="bins-data">
+          {% for bin in bins %}
+          <tr class="{% if bin.status == 'FILLED' %}bg-red-50{% endif %}">
+            <td class="border p-3">{{ bin.id }}</td>
+            <td class="border p-3">{{ bin.sensor_id }}</td>
+            <td class="border p-3">{{ bin.mahalla }}</td>
+            <td class="border p-3">{{ bin.address }}</td>
+            <td class="border p-3">
+              {% if bin.status == 'FILLED' %}
+                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold">TO'LDI</span>
+              {% else %}
+                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">BO'SH</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="border p-3 text-center text-gray-500">Ma'lumotlar yuklanmoqda...</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let knownFilledBins = new Set();
+    let initialLoad = true;
+
+    function updateTrashBinsData() {
+      fetch('{% url "get_bins_data" %}')
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          console.log('Received data:', data);
+          document.getElementById('total-bins').textContent = data.total_bins;
+          document.getElementById('filled-bins').textContent = data.filled_bins;
+
+          const tableBody = document.getElementById('bins-data');
+          const currentFilledBins = new Set();
+          let newlyFilledBins = [];
+
+          if (data.bins && data.bins.length > 0) {
+            let tableContent = '';
+            data.bins.forEach(bin => {
+              const statusClass = bin.status === 'FILLED' ? 'bg-red-50' : '';
+              const statusBadge = bin.status === 'FILLED'
+                ? '<span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold">TO\'LDI</span>'
+                : '<span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">BO\'SH</span>';
+
+              tableContent += `
+                <tr class="${statusClass}">
+                  <td class="border p-3">${bin.id}</td>
+                  <td class="border p-3">${bin.sensor_id}</td>
+                  <td class="border p-3">${bin.mahalla}</td>
+                  <td class="border p-3">${bin.address}</td>
+                  <td class="border p-3">${statusBadge}</td>
+                </tr>
+              `;
+
+              if (bin.status === 'FILLED') {
+                const binId = bin.id.toString();
+                currentFilledBins.add(binId);
+                if (!knownFilledBins.has(binId) && !initialLoad) {
+                  newlyFilledBins.push({
+                    id: binId,
+                    address: bin.address,
+                    mahalla: bin.mahalla
+                  });
+                }
+              }
+            });
+
+            tableBody.innerHTML = tableContent;
+
+            if (newlyFilledBins.length > 0) {
+              showToastNotification(newlyFilledBins);
+            }
+
+            knownFilledBins = currentFilledBins;
+            initialLoad = false;
+          } else {
+            tableBody.innerHTML = '<tr><td colspan="5" class="border p-3 text-center text-gray-500">Ma\'lumotlar topilmadi</td></tr>';
+          }
+        })
+        .catch(error => {
+          console.error('Ma\'lumotlarni olishda xatolik:', error);
+          document.getElementById('bins-data').innerHTML = '<tr><td colspan="5" class="border p-3 text-center text-gray-500">Xatolik yuz berdi</td></tr>';
+        });
+    }
+
+    function showToastNotification(newFilledBins) {
+      const toastContainer = document.getElementById('toast-container');
+      const notificationSound = document.getElementById('notification-sound');
+
+      let notificationText = '';
+      newFilledBins.forEach((bin, index) => {
+        notificationText += `<div class="mb-2"><strong>${index + 1}.</strong> ${bin.mahalla}, ${bin.address}</div>`;
+      });
+
+      const toastId = 'toast-' + Date.now();
+      const toast = document.createElement('div');
+      toast.id = toastId;
+      toast.className = 'toast-notification pulse';
+      toast.innerHTML = `
+        <div class="toast-header">
+          <div class="flex items-center">
+            <svg class="trash-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <span class="toast-title">DIQQAT! Axlat idishi to'ldi!</span>
+          </div>
+          <button class="toast-close" onclick="closeToast('${toastId}')">×</button>
+        </div>
+        <div class="toast-body">
+          ${notificationText}
+        </div>
+      `;
+
+      toastContainer.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100);
+
+      notificationSound.play().catch(error => console.error('Audio playback error:', error));
+
+      setTimeout(() => {
+        closeToast(toastId);
+      }, 12000);
+    }
+
+    function closeToast(toastId) {
+      const toast = document.getElementById(toastId);
+      if (toast) {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          if (toast && toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 300);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTrashBinsData();
+      setInterval(updateTrashBinsData, 10000); // Har 10 sekundda yangilash
+      window.closeToast = closeToast;
+    });
+  </script>
+</body>
+</html>
