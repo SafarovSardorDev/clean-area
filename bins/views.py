@@ -14,6 +14,11 @@ def update_bin(request):
         status = data.get('status')
         address = data.get('address')
         mahalla = data.get('mahalla', 'Yunusobod')
+
+        # Ma'lumot tekshiruvi
+        if not sensor_id or status not in ['FILLED', 'EMPTY'] or not address:
+            return JsonResponse({'status': 'error', 'message': 'Invalid data'}, status=400)
+
         try:
             bin_obj, created = TrashBin.objects.update_or_create(
                 sensor_id=sensor_id,

@@ -10,7 +10,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('api/update-bin/', update_bin, name='update_bin'),
-    path('get-bins-data/', get_bins_data, name='get_bins_data'),
+    path('api/get-bins/', get_bins_data, name='get_bins_data'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
