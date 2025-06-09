@@ -13,7 +13,7 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      max-width: 350px;
+      max-width: 90vw;
       background-color: #ffebee;
       color: #c62828;
       border-left: 4px solid #d50000;
@@ -24,6 +24,20 @@
       transform: translateX(400px);
       transition: transform 0.3s ease-in-out;
     }
+    
+    @media (max-width: 768px) {
+      .toast-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        transform: translateY(-100px);
+      }
+      .toast-notification.show {
+        transform: translateY(0);
+      }
+    }
+    
     .toast-notification.show {
       transform: translateX(0);
     }
@@ -93,6 +107,14 @@
       justify-content: center;
       background-color: #ffffff;
     }
+    
+    @media (max-width: 768px) {
+      .logo-area {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
     .logo-area:hover {
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
       transform: translateY(-4px);
@@ -135,6 +157,19 @@
       transition: all 0.3s ease;
       text-decoration: none;
     }
+    
+    @media (max-width: 768px) {
+      .logout-btn {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+      .logout-btn svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+      }
+    }
+    
     .logout-btn:hover {
       background: linear-gradient(to right, #1e40af, #2563eb);
       transform: translateY(-2px);
@@ -145,30 +180,133 @@
       width: 20px;
       height: 20px;
     }
+
+    /* Mobile responsive table */
+    @media (max-width: 768px) {
+      .mobile-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .mobile-table {
+        min-width: 600px;
+      }
+      
+      .mobile-card {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .desktop-table {
+        display: none;
+      }
+      
+      .mobile-card {
+        display: block;
+      }
+      
+      .card-item {
+        background: white;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #e5e7eb;
+      }
+      
+      .card-item.filled {
+        border-left-color: #dc2626;
+        background-color: #fef2f2;
+      }
+      
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      
+      .card-id {
+        font-weight: bold;
+        font-size: 18px;
+        color: #374151;
+      }
+      
+      .card-status {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      
+      .status-filled {
+        background-color: #fee2e2;
+        color: #dc2626;
+      }
+      
+      .status-empty {
+        background-color: #dcfce7;
+        color: #16a34a;
+      }
+      
+      .card-info {
+        color: #6b7280;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 font-sans">
-  <div class="container mx-auto p-6">
+  <div class="container mx-auto p-3 sm:p-6">
     <!-- Header -->
-    <div class="header header-gradient p-6 rounded-lg shadow-lg mb-6">
-      <div class="flex justify-between items-center">
-        <div class="logo-container flex items-center">
-          <div class="logo-area">
-            <img src="{% static 'images/team_logo.svg' %}" alt="Team Logo" class="logo-img" />
-            <span class="logo-tooltip">Toza Hudud</span>
+    <div class="header header-gradient p-4 sm:p-6 rounded-lg shadow-lg mb-4 sm:mb-6">
+      <div class="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
+        <!-- Mobile Layout -->
+        <div class="flex lg:hidden w-full justify-between items-center">
+          <div class="logo-container flex items-center">
+            <div class="logo-area">
+              <img src="{% static 'images/team_logo.svg' %}" alt="Team Logo" class="logo-img" />
+              <span class="logo-tooltip">Toza Hudud</span>
+            </div>
+          </div>
+          <div class="logo-container flex items-center">
+            <div class="logo-area">
+              <img src="{% static 'images/project_logo.svg' %}" alt="Project Logo" class="logo-img" />
+              <span class="logo-tooltip">Toza Hudud</span>
+            </div>
           </div>
         </div>
-        <div class="flex-1 mx-4 text-center">
-          <h1 class="text-3xl font-extrabold header-title">Mirzo Ulug'bek tumani</h1>
-          <h2 class="text-xl font-bold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi Dispetcherlik Xizmati</h2>
-        </div>
-        <div class="logo-container flex items-center">
-          <div class="logo-area">
-            <img src="{% static 'images/project_logo.svg' %}" alt="Project Logo" class="logo-img" />
-            <span class="logo-tooltip">Toza Hudud</span>
+        
+        <!-- Desktop Layout -->
+        <div class="hidden lg:flex justify-between items-center w-full">
+          <div class="logo-container flex items-center">
+            <div class="logo-area">
+              <img src="{% static 'images/team_logo.svg' %}" alt="Team Logo" class="logo-img" />
+              <span class="logo-tooltip">Toza Hudud</span>
+            </div>
           </div>
+          <div class="flex-1 mx-4 text-center">
+            <h1 class="text-2xl lg:text-3xl font-extrabold header-title">Mirzo Ulug'bek tumani</h1>
+            <h2 class="text-base lg:text-xl font-bold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi Dispetcherlik Xizmati</h2>
+          </div>
+          <div class="logo-container flex items-center">
+            <div class="logo-area">
+              <img src="{% static 'images/project_logo.svg' %}" alt="Project Logo" class="logo-img" />
+              <span class="logo-tooltip">Toza Hudud</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mobile Title -->
+        <div class="lg:hidden text-center w-full">
+          <h1 class="text-xl sm:text-2xl font-extrabold header-title">Mirzo Ulug'bek tumani</h1>
+          <h2 class="text-sm sm:text-base font-bold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi</h2>
+          <h3 class="text-xs sm:text-sm font-semibold text-gray-600">Dispetcherlik Xizmati</h3>
         </div>
       </div>
+      
       <!-- Logout Button -->
       <div class="mt-4 text-right">
         <a href="{% url 'logout' %}" class="logout-btn">
@@ -181,15 +319,15 @@
     </div>
 
     <!-- Statistika -->
-    <div class="stats-container bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg shadow-md mb-6">
+    <div class="stats-container bg-gradient-to-r from-blue-50 to-green-50 p-4 sm:p-6 rounded-lg shadow-md mb-4 sm:mb-6">
       <div class="stats-box grid grid-cols-2 gap-4 text-center">
         <div class="stat-item">
-          <h3 class="text-lg font-semibold text-gray-700">Jami idishlar</h3>
-          <div id="total-bins" class="text-3xl font-bold text-blue-600">{{ total_bins }}</div>
+          <h3 class="text-sm sm:text-lg font-semibold text-gray-700">Jami idishlar</h3>
+          <div id="total-bins" class="text-2xl sm:text-3xl font-bold text-blue-600">{{ total_bins }}</div>
         </div>
         <div class="stat-item">
-          <h3 class="text-lg font-semibold text-gray-700">To'lgan idishlar</h3>
-          <div id="filled-bins" class="text-3xl font-bold text-red-600">{{ filled_bins }}</div>
+          <h3 class="text-sm sm:text-lg font-semibold text-gray-700">To'lgan idishlar</h3>
+          <div id="filled-bins" class="text-2xl sm:text-3xl font-bold text-red-600">{{ filled_bins }}</div>
         </div>
       </div>
     </div>
@@ -197,40 +335,65 @@
     <!-- Toast bildirishnoma -->
     <div id="toast-container"></div>
 
-    <!-- Idishlar ro'yxati -->
-    <div class="table-container bg-white p-6 rounded-lg shadow-lg">
-      <table id="bins-table" class="w-full border-collapse relative">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="border p-3 text-left text-gray-700">ID</th>
-            <th class="border p-3 text-left text-gray-700">Sensor ID</th>
-            <th class="border p-3 text-left text-gray-700">Mahalla</th>
-            <th class="border p-3 text-left text-gray-700">Manzil</th>
-            <th class="border p-3 text-left text-gray-700">Holat</th>
-          </tr>
-        </thead>
-        <tbody id="bins-data">
-          {% for bin in bins %}
-          <tr class="{% if bin.status == 'FILLED' %}bg-red-50{% endif %}">
-            <td class="border p-3">{{ bin.id }}</td>
-            <td class="border p-3">{{ bin.sensor_id }}</td>
-            <td class="border p-3">{{ bin.mahalla }}</td>
-            <td class="border p-3">{{ bin.address }}</td>
-            <td class="border p-3">
-              {% if bin.status == 'FILLED' %}
-                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold">TO'LDI</span>
-              {% else %}
-                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">BO'SH</span>
-              {% endif %}
-            </td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="5" class="border p-3 text-center text-gray-500">Ma'lumotlar yuklanmoqda...</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <!-- Desktop Table -->
+    <div class="desktop-table table-container bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+      <div class="mobile-table-container">
+        <table id="bins-table" class="mobile-table w-full border-collapse relative">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">ID</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Sensor ID</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Mahalla</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Manzil</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Holat</th>
+            </tr>
+          </thead>
+          <tbody id="bins-data">
+            {% for bin in bins %}
+            <tr class="{% if bin.status == 'FILLED' %}bg-red-50{% endif %}">
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.id }}</td>
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.sensor_id }}</td>
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.mahalla }}</td>
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.address }}</td>
+              <td class="border p-2 sm:p-3">
+                {% if bin.status == 'FILLED' %}
+                  <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold text-xs sm:text-sm">TO'LDI</span>
+                {% else %}
+                  <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold text-xs sm:text-sm">BO'SH</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Ma'lumotlar yuklanmoqda...</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Mobile Cards -->
+    <div class="mobile-card bg-white rounded-lg shadow-lg p-4">
+      <div id="mobile-bins-data">
+        {% for bin in bins %}
+        <div class="card-item {% if bin.status == 'FILLED' %}filled{% endif %}">
+          <div class="card-header">
+            <div class="card-id">ID: {{ bin.id }}</div>
+            <div class="card-status {% if bin.status == 'FILLED' %}status-filled{% else %}status-empty{% endif %}">
+              {% if bin.status == 'FILLED' %}TO'LDI{% else %}BO'SH{% endif %}
+            </div>
+          </div>
+          <div class="card-info">
+            <div><strong>Sensor ID:</strong> {{ bin.sensor_id }}</div>
+            <div><strong>Mahalla:</strong> {{ bin.mahalla }}</div>
+            <div><strong>Manzil:</strong> {{ bin.address }}</div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="text-center text-gray-500 py-8">Ma'lumotlar yuklanmoqda...</div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
@@ -250,25 +413,50 @@
           document.getElementById('filled-bins').textContent = data.filled_bins;
 
           const tableBody = document.getElementById('bins-data');
+          const mobileContainer = document.getElementById('mobile-bins-data');
           const currentFilledBins = new Set();
           let newlyFilledBins = [];
 
           if (data.bins && data.bins.length > 0) {
+            // Desktop table content
             let tableContent = '';
+            // Mobile cards content
+            let mobileContent = '';
+            
             data.bins.forEach(bin => {
               const statusClass = bin.status === 'FILLED' ? 'bg-red-50' : '';
               const statusBadge = bin.status === 'FILLED'
-                ? '<span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold">TO\'LDI</span>'
-                : '<span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">BO\'SH</span>';
+                ? '<span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold text-xs sm:text-sm">TO\'LDI</span>'
+                : '<span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold text-xs sm:text-sm">BO\'SH</span>';
 
+              // Desktop table row
               tableContent += `
                 <tr class="${statusClass}">
-                  <td class="border p-3">${bin.id}</td>
-                  <td class="border p-3">${bin.sensor_id}</td>
-                  <td class="border p-3">${bin.mahalla}</td>
-                  <td class="border p-3">${bin.address}</td>
-                  <td class="border p-3">${statusBadge}</td>
+                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.id}</td>
+                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.sensor_id}</td>
+                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.mahalla}</td>
+                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.address}</td>
+                  <td class="border p-2 sm:p-3">${statusBadge}</td>
                 </tr>
+              `;
+
+              // Mobile card
+              const cardClass = bin.status === 'FILLED' ? 'filled' : '';
+              const mobileStatus = bin.status === 'FILLED' ? 'status-filled' : 'status-empty';
+              const mobileStatusText = bin.status === 'FILLED' ? 'TO\'LDI' : 'BO\'SH';
+              
+              mobileContent += `
+                <div class="card-item ${cardClass}">
+                  <div class="card-header">
+                    <div class="card-id">ID: ${bin.id}</div>
+                    <div class="card-status ${mobileStatus}">${mobileStatusText}</div>
+                  </div>
+                  <div class="card-info">
+                    <div><strong>Sensor ID:</strong> ${bin.sensor_id}</div>
+                    <div><strong>Mahalla:</strong> ${bin.mahalla}</div>
+                    <div><strong>Manzil:</strong> ${bin.address}</div>
+                  </div>
+                </div>
               `;
 
               if (bin.status === 'FILLED') {
@@ -285,6 +473,7 @@
             });
 
             tableBody.innerHTML = tableContent;
+            mobileContainer.innerHTML = mobileContent;
 
             if (newlyFilledBins.length > 0) {
               showToastNotification(newlyFilledBins);
@@ -293,12 +482,14 @@
             knownFilledBins = currentFilledBins;
             initialLoad = false;
           } else {
-            tableBody.innerHTML = '<tr><td colspan="5" class="border p-3 text-center text-gray-500">Ma\'lumotlar topilmadi</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="5" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Ma\'lumotlar topilmadi</td></tr>';
+            mobileContainer.innerHTML = '<div class="text-center text-gray-500 py-8">Ma\'lumotlar topilmadi</div>';
           }
         })
         .catch(error => {
           console.error('Ma\'lumotlarni olishda xatolik:', error);
-          document.getElementById('bins-data').innerHTML = '<tr><td colspan="5" class="border p-3 text-center text-gray-500">Xatolik yuz berdi</td></tr>';
+          document.getElementById('bins-data').innerHTML = '<tr><td colspan="5" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Xatolik yuz berdi</td></tr>';
+          document.getElementById('mobile-bins-data').innerHTML = '<div class="text-center text-gray-500 py-8">Xatolik yuz berdi</div>';
         });
     }
 
@@ -307,7 +498,7 @@
       const notificationSound = document.getElementById('notification-sound');
 
       let notificationText = '';
-      newENTAILEDBins.forEach((bin, index) => {
+      newFilledBins.forEach((bin, index) => {
         notificationText += `<div class="mb-2"><strong>${index + 1}.</strong> ${bin.mahalla}, ${bin.address}</div>`;
       });
 
