@@ -13,7 +13,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-%=b9&c-abd7d4c
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 # Vercel uchun ALLOWED_HOSTS
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1', '*']  # '*' test uchun, ishlab chiqarishda aniq domenlar bilan almashtiring
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app', ]  # '*' test uchun, ishlab chiqarishda aniq domenlar bilan almashtiring
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.ngrok-free.app",
+]
+
+
 
 # Ilovalar
 INSTALLED_APPS = [
