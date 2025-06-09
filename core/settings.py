@@ -3,39 +3,31 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
-# .env faylidan muhit o‘zgaruvchilarini yuklash
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Xavfsizlik sozlamalari
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-%=b9&c-abd7d4ccgs9pcn#-a94*4k5=e0zsm05^e#kic0)0r+3')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-# Vercel uchun ALLOWED_HOSTS
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app', ]  # '*' test uchun, ishlab chiqarishda aniq domenlar bilan almashtiring
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost 127.0.0.1').split()
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://*.ngrok-free.app",
-]
+CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split()
 
-
-
-# Ilovalar
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  # WhiteNoise statik fayllar uchun
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'bins',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise middleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -64,13 +56,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# PostgreSQL sozlamalari
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600, conn_health_checks=True)
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -85,7 +72,6 @@ TIME_ZONE = 'Asia/Tashkent'
 USE_I18N = True
 USE_TZ = True
 
-# Statik fayllar sozlamalari
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
