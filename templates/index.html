@@ -11,302 +11,317 @@
     /* Toast Notification */
     .toast-notification {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      max-width: 90vw;
-      background-color: #ffebee;
-      color: #c62828;
-      border-left: 4px solid #d50000;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-      border-radius: 6px;
-      padding: 16px;
-      z-index: 9999;
-      transform: translateX(400px);
+      top: 1rem;
+      right: 1rem;
+      max-width: calc(100vw - 2rem);
+      background-color: #fef2f2;
+      color: #b91c1c;
+      border-left: 4px solid #dc2626;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      z-index: 1000;
+      transform: translateX(100%);
       transition: transform 0.3s ease-in-out;
     }
-    
-    @media (max-width: 768px) {
+
+    .toast-notification.show {
+      transform: translateX(0);
+    }
+
+    @media (max-width: 640px) {
       .toast-notification {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        max-width: none;
-        transform: translateY(-100px);
+        top: 0.5rem;
+        right: 0.5rem;
+        left: 0.5rem;
+        transform: translateY(-100%);
       }
       .toast-notification.show {
         transform: translateY(0);
       }
     }
-    
-    .toast-notification.show {
-      transform: translateX(0);
-    }
+
     .toast-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 0.5rem;
     }
+
     .toast-title {
-      font-weight: 700;
-      font-size: 16px;
-      margin-right: 20px;
+      font-weight: 600;
+      font-size: 1rem;
     }
+
     .toast-close {
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 1.25rem;
       cursor: pointer;
-      color: #c62828;
+      color: #b91c1c;
     }
+
     .toast-body {
-      font-size: 14px;
+      font-size: 0.875rem;
     }
+
     .trash-icon {
-      margin-right: 12px;
-      color: #d50000;
+      margin-right: 0.5rem;
+      color: #dc2626;
     }
+
     .pulse {
-      animation: pulse-animation 1s infinite;
+      animation: pulse-animation 1.5s infinite;
     }
+
     @keyframes pulse-animation {
-      0% { box-shadow: 0 0 0 0 rgba(213, 0, 0, 0.4); }
-      70% { box-shadow: 0 0 0 10px rgba(213, 0, 0, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(213, 0, 0, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
     }
 
     /* Header and Logo */
-    .logo-container {
-      transition: all 0.3s ease;
-    }
     .logo-container:hover {
       transform: scale(1.05);
+      transition: transform 0.3s ease;
     }
+
     .header-gradient {
-      background: linear-gradient(90deg, rgba(37,99,235,0.1) 0%, rgba(59,130,246,0.1) 50%, rgba(52,211,153,0.1) 100%);
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
     }
+
     .header-title {
       background: linear-gradient(to right, #1e40af, #3b82f6, #10b981);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      letter-spacing: 0.5px;
-      text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+      font-weight: 800;
     }
+
     .logo-area {
-      position: relative;
-      width: 80px;
-      height: 80px;
-      overflow: hidden;
-      border-radius: 12px;
-      transition: all 0.4s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 4px;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 0.25rem;
+      background-color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #ffffff;
-    }
-    
-    @media (max-width: 768px) {
-      .logo-area {
-        width: 50px;
-        height: 50px;
-      }
-    }
-    
-    .logo-area:hover {
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-      transform: translateY(-4px);
-    }
-    .logo-tooltip {
-      position: absolute;
-      bottom: -40px;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      opacity: 0;
       transition: all 0.3s ease;
-      pointer-events: none;
-      text-align: center;
     }
-    .logo-area:hover .logo-tooltip {
-      bottom: -30px;
-      opacity: 1;
+
+    .logo-area:hover {
+      box-shadow0 4px 8px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
     }
+
     .logo-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
     }
 
+    .logo-tooltip {
+      position: absolute;
+      bottom: -2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .logo-area:hover .logo-tooltip {
+      bottom: -1.5rem;
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .logo-area {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
+
     /* Logout Button */
     .logout-btn {
       display: inline-flex;
       align-items: center;
-      padding: 8px 16px;
+      padding: 0.5rem 1rem;
       background: linear-gradient(to right, #2563eb, #3b82f6);
       color: white;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
       text-decoration: none;
     }
-    
-    @media (max-width: 768px) {
-      .logout-btn {
-        padding: 6px 12px;
-        font-size: 14px;
-      }
-      .logout-btn svg {
-        width: 16px;
-        height: 16px;
-        margin-right: 6px;
-      }
-    }
-    
+
     .logout-btn:hover {
       background: linear-gradient(to right, #1e40af, #2563eb);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-    .logout-btn svg {
-      margin-right: 8px;
-      width: 20px;
-      height: 20px;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     }
 
-    /* Mobile responsive table */
-    @media (max-width: 768px) {
-      .mobile-table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+    .logout-btn svg {
+      margin-right: 0.5rem;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .logout-btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
       }
-      
-      .mobile-table {
-        min-width: 600px;
+      .logout-btn svg {
+        width: 1rem;
+        height: 1rem;
       }
-      
+    }
+
+    /* Table and Cards */
+    .mobile-table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .mobile-table {
+      min-width: 36rem;
+    }
+
+    @media (min-width: 641px) {
       .mobile-card {
-        display: none;
+        display: none !important;
       }
     }
 
     @media (max-width: 640px) {
       .desktop-table {
-        display: none;
+        display: none !important;
       }
-      
       .mobile-card {
         display: block;
       }
-      
-      .card-item {
-        background: white;
-        border-radius: 8px;
-        padding: 16px;
-        margin-bottom: 16px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid #e5e7eb;
-      }
-      
-      .card-item.filled {
-        border-left-color: #dc2626;
-        background-color: #fef2f2;
-      }
-      
-      .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-      }
-      
-      .card-id {
-        font-weight: bold;
-        font-size: 18px;
-        color: #374151;
-      }
-      
-      .card-status {
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-      }
-      
-      .status-filled {
-        background-color: #fee2e2;
-        color: #dc2626;
-      }
-      
-      .status-empty {
-        background-color: #dcfce7;
-        color: #16a34a;
-      }
-      
-      .card-info {
-        color: #6b7280;
-        font-size: 14px;
-        line-height: 1.5;
-      }
+    }
+
+    .card-item {
+      background: white;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #e5e7eb;
+      transition: transform 0.2s ease;
+    }
+
+    .card-item.filled {
+      border-left-color: #dc2626;
+      background-color: #fef2f2;
+    }
+
+    .card-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-id {
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: #1f2937;
+    }
+
+    .card-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-filled {
+      background-color: #fee2e2;
+ najważniejszych color: #dc2626;
+    }
+
+    .status-empty {
+      background-color: #dcfce7;
+      color: #16a34a;
+    }
+
+    .card-info {
+      color: #6b7280;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .card-info a {
+      display: inline-block;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
 <body class="bg-gray-50 font-sans">
-  <div class="container mx-auto p-3 sm:p-6">
+  <div class="container mx-auto p-4 sm:p-6">
     <!-- Header -->
-    <div class="header header-gradient p-4 sm:p-6 rounded-lg shadow-lg mb-4 sm:mb-6">
+    <div class="header-gradient p-4 sm:p-6 rounded-lg shadow-md mb-6">
       <div class="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
         <!-- Mobile Layout -->
         <div class="flex lg:hidden w-full justify-between items-center">
-          <div class="logo-container flex items-center">
+          <div class="logo-container">
             <div class="logo-area">
               <img src="{% static 'images/team_logo.svg' %}" alt="Team Logo" class="logo-img" />
               <span class="logo-tooltip">Toza Hudud</span>
             </div>
           </div>
-          <div class="logo-container flex items-center">
+          <div class="logo-container">
             <div class="logo-area">
               <img src="{% static 'images/project_logo.svg' %}" alt="Project Logo" class="logo-img" />
               <span class="logo-tooltip">Toza Hudud</span>
             </div>
           </div>
         </div>
-        
+
         <!-- Desktop Layout -->
         <div class="hidden lg:flex justify-between items-center w-full">
-          <div class="logo-container flex items-center">
+          <div class="logo-container">
             <div class="logo-area">
               <img src="{% static 'images/team_logo.svg' %}" alt="Team Logo" class="logo-img" />
               <span class="logo-tooltip">Toza Hudud</span>
             </div>
           </div>
-          <div class="flex-1 mx-4 text-center">
-            <h1 class="text-2xl lg:text-3xl font-extrabold header-title">Mirzo Ulug'bek tumani</h1>
-            <h2 class="text-base lg:text-xl font-bold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi Dispetcherlik Xizmati</h2>
+          <div class="flex-1 mx-6 text-center">
+            <h1 class="text-2xl lg:text-3xl header-title">Mirzo Ulug‘bek tumani</h1>
+            <h2 class="text-base lg:text-lg font-semibold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi Dispetcherlik Xizmati</h2>
           </div>
-          <div class="logo-container flex items-center">
+          <div class="logo-container">
             <div class="logo-area">
               <img src="{% static 'images/project_logo.svg' %}" alt="Project Logo" class="logo-img" />
               <span class="logo-tooltip">Toza Hudud</span>
             </div>
           </div>
         </div>
-        
+
         <!-- Mobile Title -->
         <div class="lg:hidden text-center w-full">
-          <h1 class="text-xl sm:text-2xl font-extrabold header-title">Mirzo Ulug'bek tumani</h1>
-          <h2 class="text-sm sm:text-base font-bold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi</h2>
-          <h3 class="text-xs sm:text-sm font-semibold text-gray-600">Dispetcherlik Xizmati</h3>
+          <h1 class="text-xl sm:text-2xl header-title">Mirzo Ulug‘bek tumani</h1>
+          <h2 class="text-sm sm:text-base font-semibold text-gray-700 mt-1">Toza Hududni Boshqarish Agentligi</h2>
+          <h3 class="text-xs sm:text-sm font-medium text-gray-600">Dispetcherlik Xizmati</h3>
         </div>
       </div>
-      
+
       <!-- Logout Button -->
       <div class="mt-4 text-right">
         <a href="{% url 'logout' %}" class="logout-btn">
@@ -318,54 +333,60 @@
       </div>
     </div>
 
-    <!-- Statistika -->
-    <div class="stats-container bg-gradient-to-r from-blue-50 to-green-50 p-4 sm:p-6 rounded-lg shadow-md mb-4 sm:mb-6">
-      <div class="stats-box grid grid-cols-2 gap-4 text-center">
-        <div class="stat-item">
-          <h3 class="text-sm sm:text-lg font-semibold text-gray-700">Jami idishlar</h3>
+    <!-- Statistics -->
+    <div class="bg-gradient-to-r from-blue-50 to-green-50 p-4 sm:p-6 rounded-lg shadow-md mb-6">
+      <div class="grid grid-cols-2 gap-4 text-center">
+        <div>
+          <h3 class="text-sm sm:text-base font-semibold text-gray-700">Jami idishlar</h3>
           <div id="total-bins" class="text-2xl sm:text-3xl font-bold text-blue-600">{{ total_bins }}</div>
         </div>
-        <div class="stat-item">
-          <h3 class="text-sm sm:text-lg font-semibold text-gray-700">To'lgan idishlar</h3>
+        <div>
+          <h3 class="text-sm sm:text-base font-semibold text-gray-700">To‘lgan idishlar</h3>
           <div id="filled-bins" class="text-2xl sm:text-3xl font-bold text-red-600">{{ filled_bins }}</div>
         </div>
       </div>
     </div>
 
-    <!-- Toast bildirishnoma -->
+    <!-- Toast Container -->
     <div id="toast-container"></div>
 
     <!-- Desktop Table -->
-    <div class="desktop-table table-container bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+    <div class="desktop-table bg-white p-4 sm:p-6 rounded-lg shadow-md">
       <div class="mobile-table-container">
-        <table id="bins-table" class="mobile-table w-full border-collapse relative">
+        <table id="bins-table" class="mobile-table w-full border-collapse">
           <thead>
             <tr class="bg-gray-100">
-              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">ID</th>
-              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Sensor ID</th>
-              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Mahalla</th>
-              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Manzil</th>
-              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base">Holat</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base font-semibold">ID</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base font-semibold">Sensor ID</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base font-semibold">Mahalla</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base font-semibold">Manzil</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base font-semibold">Holat</th>
+              <th class="border p-2 sm:p-3 text-left text-gray-700 text-sm sm:text-base font-semibold">Tarix</th>
             </tr>
           </thead>
           <tbody id="bins-data">
             {% for bin in bins %}
             <tr class="{% if bin.status == 'FILLED' %}bg-red-50{% endif %}">
-              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.id }}</td>
-              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.sensor_id }}</td>
-              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.mahalla }}</td>
-              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.address }}</td>
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.id|default:"N/A" }}</td>
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.sensor_id|default:"N/A" }}</td>
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.mahalla|default:"N/A" }}</td>
+              <td class="border p-2 sm:p-3 text-sm sm:text-base">{{ bin.address|default:"N/A" }}</td>
               <td class="border p-2 sm:p-3">
-                {% if bin.status == 'FILLED' %}
-                  <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold text-xs sm:text-sm">TO'LDI</span>
+                <span class="px-2 py-1 rounded-full font-semibold text-xs sm:text-sm {% if bin.status == 'FILLED' %}bg-red-100 text-red-800{% else %}bg-green-100 text-green-800{% endif %}">
+                  {% if bin.status == 'FILLED' %}TO‘LDI{% else %}BO‘SH{% endif %}
+                </span>
+              </td>
+              <td class="border p-2 sm:p-3">
+                {% if bin.id %}
+                  <a href="{% url 'bin_history' bin.id %}" class="text-blue-600 hover:underline font-medium">Ko‘rish</a>
                 {% else %}
-                  <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold text-xs sm:text-sm">BO'SH</span>
+                  <span class="text-gray-500">N/A</span>
                 {% endif %}
               </td>
             </tr>
             {% empty %}
             <tr>
-              <td colspan="5" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Ma'lumotlar yuklanmoqda...</td>
+              <td colspan="6" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Ma‘lumotlar yuklanmoqda...</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -374,24 +395,29 @@
     </div>
 
     <!-- Mobile Cards -->
-    <div class="mobile-card bg-white rounded-lg shadow-lg p-4">
+    <div class="mobile-card">
       <div id="mobile-bins-data">
         {% for bin in bins %}
         <div class="card-item {% if bin.status == 'FILLED' %}filled{% endif %}">
           <div class="card-header">
-            <div class="card-id">ID: {{ bin.id }}</div>
+            <div class="card-id">ID: {{ bin.id|default:"N/A" }}</div>
             <div class="card-status {% if bin.status == 'FILLED' %}status-filled{% else %}status-empty{% endif %}">
-              {% if bin.status == 'FILLED' %}TO'LDI{% else %}BO'SH{% endif %}
+              {% if bin.status == 'FILLED' %}TO‘LDI{% else %}BO‘SH{% endif %}
             </div>
           </div>
           <div class="card-info">
-            <div><strong>Sensor ID:</strong> {{ bin.sensor_id }}</div>
-            <div><strong>Mahalla:</strong> {{ bin.mahalla }}</div>
-            <div><strong>Manzil:</strong> {{ bin.address }}</div>
+            <div><strong>Sensor ID:</strong> {{ bin.sensor_id|default:"N/A" }}</div>
+            <div><strong>Mahalla:</strong> {{ bin.mahalla|default:"N/A" }}</div>
+            <div><strong>Manzil:</strong> {{ bin.address|default:"N/A" }}</div>
+            {% if bin.id %}
+              <a href="{% url 'bin_history' bin.id %}" class="text-blue-600 hover:underline font-medium">Tarixni ko‘rish</a>
+            {% else %}
+              <span class="text-gray-500">Tarix mavjud emas</span>
+            {% endif %}
           </div>
         </div>
         {% empty %}
-        <div class="text-center text-gray-500 py-8">Ma'lumotlar yuklanmoqda...</div>
+        <div class="text-center text-gray-500 py-8">Ma‘lumotlar yuklanmoqda...</div>
         {% endfor %}
       </div>
     </div>
@@ -401,155 +427,140 @@
     let knownFilledBins = new Set();
     let initialLoad = true;
 
-    function updateTrashBinsData() {
-      fetch('{% url "get_bins_data" %}')
-        .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          return response.json();
-        })
-        .then(data => {
-          console.log('Received data:', data);
-          document.getElementById('total-bins').textContent = data.total_bins;
-          document.getElementById('filled-bins').textContent = data.filled_bins;
+    async function updateTrashBinsData() {
+      try {
+        const response = await fetch('{% url "get_bins_data" %}');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
 
-          const tableBody = document.getElementById('bins-data');
-          const mobileContainer = document.getElementById('mobile-bins-data');
-          const currentFilledBins = new Set();
-          let newlyFilledBins = [];
+        document.getElementById('total-bins').textContent = data.total_bins || 0;
+        document.getElementById('filled-bins').textContent = data.filled_bins || 0;
 
-          if (data.bins && data.bins.length > 0) {
-            // Desktop table content
-            let tableContent = '';
-            // Mobile cards content
-            let mobileContent = '';
-            
-            data.bins.forEach(bin => {
-              const statusClass = bin.status === 'FILLED' ? 'bg-red-50' : '';
-              const statusBadge = bin.status === 'FILLED'
-                ? '<span class="px-2 py-1 bg-red-100 text-red-800 rounded-full font-semibold text-xs sm:text-sm">TO\'LDI</span>'
-                : '<span class="px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold text-xs sm:text-sm">BO\'SH</span>';
+        const tableBody = document.getElementById('bins-data');
+        const mobileContainer = document.getElementById('mobile-bins-data');
+        const currentFilledBins = new Set();
+        const newlyFilledBins = [];
 
-              // Desktop table row
-              tableContent += `
-                <tr class="${statusClass}">
-                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.id}</td>
-                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.sensor_id}</td>
-                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.mahalla}</td>
-                  <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.address}</td>
-                  <td class="border p-2 sm:p-3">${statusBadge}</td>
-                </tr>
-              `;
+        if (data.bins?.length > 0) {
+          let tableContent = '';
+          let mobileContent = '';
 
-              // Mobile card
-              const cardClass = bin.status === 'FILLED' ? 'filled' : '';
-              const mobileStatus = bin.status === 'FILLED' ? 'status-filled' : 'status-empty';
-              const mobileStatusText = bin.status === 'FILLED' ? 'TO\'LDI' : 'BO\'SH';
-              
-              mobileContent += `
-                <div class="card-item ${cardClass}">
-                  <div class="card-header">
-                    <div class="card-id">ID: ${bin.id}</div>
-                    <div class="card-status ${mobileStatus}">${mobileStatusText}</div>
-                  </div>
-                  <div class="card-info">
-                    <div><strong>Sensor ID:</strong> ${bin.sensor_id}</div>
-                    <div><strong>Mahalla:</strong> ${bin.mahalla}</div>
-                    <div><strong>Manzil:</strong> ${bin.address}</div>
-                  </div>
+          data.bins.forEach(bin => {
+            const statusClass = bin.status === 'FILLED' ? 'bg-red-50' : '';
+            const statusBadge = bin.status === 'FILLED'
+              ? '<span class="px-2 py-1 rounded-full font-semibold text-xs sm:text-sm bg-red-100 text-red-800">TO‘LDI</span>'
+              : '<span class="px-2 py-1 rounded-full font-semibold text-xs sm:text-sm bg-green-100 text-green-800">BO‘SH</span>';
+
+            tableContent += `
+              <tr class="${statusClass}">
+                <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.id || 'N/A'}</td>
+                <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.sensor_id || 'N/A'}</td>
+                <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.mahalla || 'N/A'}</td>
+                <td class="border p-2 sm:p-3 text-sm sm:text-base">${bin.address || 'N/A'}</td>
+                <td class="border p-2 sm:p-3">${statusBadge}</td>
+                <td class="border p-2 sm:p-3">
+                  ${bin.id ? `<a href="/bin/${bin.id}/history/" class="text-blue-600 hover:underline font-medium">Ko‘rish</a>` : '<span class="text-gray-500">N/A</span>'}
+                </td>
+              </tr>
+            `;
+
+            const cardClass = bin.status === 'FILLED' ? 'filled' : '';
+            const mobileStatus = bin.status === 'FILLED' ? 'status-filled' : 'status-empty';
+            const mobileStatusText = bin.status === 'FILLED' ? 'TO‘LDI' : 'BO‘SH';
+
+            mobileContent += `
+              <div class="card-item ${cardClass}">
+                <div class="card-header">
+                  <div class="card-id">ID: ${bin.id || 'N/A'}</div>
+                  <div class="card-status ${mobileStatus}">${mobileStatusText}</div>
                 </div>
-              `;
+                <div class="card-info">
+                  <div><strong>Sensor ID:</strong> ${bin.sensor_id || 'N/A'}</div>
+                  <div><strong>Mahalla:</strong> ${bin.mahalla || 'N/A'}</div>
+                  <div><strong>Manzil:</strong> ${bin.address || 'N/A'}</div>
+                  ${bin.id ? `<a href="/bin/${bin.id}/history/" class="text-blue-600 hover:underline font-medium">Tarixni ko‘rish</a>` : '<span class="text-gray-500">Tarix mavjud emas</span>'}
+                </div>
+              </div>
+            `;
 
-              if (bin.status === 'FILLED') {
-                const binId = bin.id.toString();
-                currentFilledBins.add(binId);
-                if (!knownFilledBins.has(binId) && !initialLoad) {
-                  newlyFilledBins.push({
-                    id: binId,
-                    address: bin.address,
-                    mahalla: bin.mahalla
-                  });
-                }
+            if (bin.status === 'FILLED' && bin.id) {
+              const binId = bin.id.toString();
+              currentFilledBins.add(binId);
+              if (!knownFilledBins.has(binId) && !initialLoad) {
+                newlyFilledBins.push({
+                  id: binId,
+                  address: bin.address || 'N/A',
+                  mahalla: bin.mahalla || 'N/A'
+                });
               }
-            });
-
-            tableBody.innerHTML = tableContent;
-            mobileContainer.innerHTML = mobileContent;
-
-            if (newlyFilledBins.length > 0) {
-              showToastNotification(newlyFilledBins);
             }
+          });
 
-            knownFilledBins = currentFilledBins;
-            initialLoad = false;
-          } else {
-            tableBody.innerHTML = '<tr><td colspan="5" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Ma\'lumotlar topilmadi</td></tr>';
-            mobileContainer.innerHTML = '<div class="text-center text-gray-500 py-8">Ma\'lumotlar topilmadi</div>';
+          tableBody.innerHTML = tableContent;
+          mobileContainer.innerHTML = mobileContent;
+
+          if (newlyFilledBins.length > 0) {
+            showToastNotification(newlyFilledBins);
           }
-        })
-        .catch(error => {
-          console.error('Ma\'lumotlarni olishda xatolik:', error);
-          document.getElementById('bins-data').innerHTML = '<tr><td colspan="5" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Xatolik yuz berdi</td></tr>';
-          document.getElementById('mobile-bins-data').innerHTML = '<div class="text-center text-gray-500 py-8">Xatolik yuz berdi</div>';
-        });
+
+          knownFilledBins = currentFilledBins;
+          initialLoad = false;
+        } else {
+          tableBody.innerHTML = '<tr><td colspan="6" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Ma‘lumotlar topilmadi</td></tr>';
+          mobileContainer.innerHTML = '<div class="text-center text-gray-500 py-8">Ma‘lumotlar topilmadi</div>';
+        }
+      } catch (error) {
+        console.error('Ma‘lumotlarni olishda xato:', error);
+        document.getElementById('bins-data').innerHTML = '<tr><td colspan="6" class="border p-2 sm:p-3 text-center text-gray-500 text-sm sm:text-base">Xatolik yuz berdi</td></tr>';
+        document.getElementById('mobile-bins-data').innerHTML = '<div class="text-center text-gray-500 py-8">Xatolik yuz berdi</div>';
+      }
     }
 
     function showToastNotification(newFilledBins) {
       const toastContainer = document.getElementById('toast-container');
       const notificationSound = document.getElementById('notification-sound');
 
-      let notificationText = '';
-      newFilledBins.forEach((bin, index) => {
-        notificationText += `<div class="mb-2"><strong>${index + 1}.</strong> ${bin.mahalla}, ${bin.address}</div>`;
-      });
+      const notificationText = newFilledBins
+        .map((bin, index) => `<div class="mb-2"><strong>${index + 1}.</strong> ${bin.mahalla}, ${bin.address}</div>`)
+        .join('');
 
-      const toastId = 'toast-' + Date.now();
+      const toastId = `toast-${Date.now()}`;
       const toast = document.createElement('div');
       toast.id = toastId;
       toast.className = 'toast-notification pulse';
       toast.innerHTML = `
         <div class="toast-header">
           <div class="flex items-center">
-            <svg class="trash-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg class="trash-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
             </svg>
-            <span class="toast-title">DIQQAT! Axlat idishi to'ldi!</span>
+            <span class="toast-title">DIQQAT! Axlat idishi to‘ldi!</span>
           </div>
           <button class="toast-close" onclick="closeToast('${toastId}')">×</button>
         </div>
-        <div class="toast-body">
-          ${notificationText}
-        </div>
+        <div class="toast-body">${notificationText}</div>
       `;
 
       toastContainer.appendChild(toast);
-      setTimeout(() => {
-        toast.classList.add('show');
-      }, 100);
-
-      notificationSound.play().catch(error => console.error('Audio playback error:', error));
-
-      setTimeout(() => {
-        closeToast(toastId);
-      }, 12000);
+      setTimeout(() => toast.classList.add('show'), 100);
+      notificationSound?.play().catch(error => console.error('Audio playback error:', error));
+      setTimeout(() => closeToast(toastId), 12000);
     }
 
     function closeToast(toastId) {
       const toast = document.getElementById(toastId);
       if (toast) {
         toast.classList.remove('show');
-        setTimeout(() => {
-          if (toast && toast.parentNode) {
-            toast.parentNode.removeChild(toast);
-          }
-        }, 300);
+        setTimeout(() => toast.parentNode?.removeChild(toast), 300);
       }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       updateTrashBinsData();
-      setInterval(updateTrashBinsData, 10000); // Har 10 sekundda yangilash
+      setInterval(updateTrashBinsData, 10000);
       window.closeToast = closeToast;
     });
   </script>
+
 </body>
 </html>

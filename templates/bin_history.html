@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Tarix - {{ bin.sensor_id }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 py-6 px-4 sm:px-8">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold mb-4">🕓 {{ bin.sensor_id }} — Tarix</h2>
+    <p class="mb-2 text-gray-700"><strong>Mahalla:</strong> {{ bin.mahalla }}</p>
+    <p class="mb-4 text-gray-700"><strong>Manzil:</strong> {{ bin.address }}</p>
+
+    <table class="w-full table-auto border border-gray-300">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="p-2 border">#</th>
+          <th class="p-2 border">Holat</th>
+          <th class="p-2 border">Vaqti</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in history %}
+        <tr class="{% cycle 'bg-white' 'bg-gray-50' %}">
+          <td class="p-2 border text-center">{{ forloop.counter }}</td>
+          <td class="p-2 border text-center">
+            {% if record.status == 'FILLED' %}
+              <span class="text-red-600 font-semibold">TO'LDI</span>
+            {% else %}
+              <span class="text-green-600 font-semibold">BO'SH</span>
+            {% endif %}
+          </td>
+          <td class="p-2 border text-center">{{ record.timestamp|date:"Y-m-d H:i:s" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" class="p-4 text-center text-gray-500">Tarix mavjud emas.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="mt-6 text-right">
+      <a href="{% url 'index' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">⬅ Orqaga</a>
+    </div>
+  </div>
+</body>
+</html>
