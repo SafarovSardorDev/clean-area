@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.http import HttpResponseRedirect
 from .models import Dispatcher, TrashBin, BinStatusHistory
 import logging
 from django import forms
@@ -118,7 +119,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return HttpResponseRedirect(reverse('index'))
         else:
             messages.error(request, "Foydalanuvchi nomi yoki parol noto‘g‘ri.")
     return render(request, 'login.html')
